@@ -5,6 +5,7 @@
 #include <string.h> // strcpy
 #include <arpa/inet.h> // inet_ntoa
 #include <sys/socket.h> // sockaddr_in
+#include <unistd.h> // write
 
 #include "server.h"
 
@@ -35,6 +36,8 @@ bool get_hostname(char *hostname) {
 
 bool init_server() {
     printf("Init the server\n");
+
+    char* message;
 
     int my_socket, number_connections, nuovo_socket;
     struct sockaddr_in server, client;
@@ -72,6 +75,11 @@ bool init_server() {
     }
 
     puts("Connessione accettata");
+
+    // Scrivi nel socket la risposta del server al client
+    message = "Connessione rivevuta ma ora devo andare, ciao\n";
+    write(nuovo_socket, message, strlen(message));
+
 
     return true;
 }
