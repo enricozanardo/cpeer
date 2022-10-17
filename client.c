@@ -2,17 +2,20 @@
 #include <stdbool.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <string.h>
+#include <unistd.h>
 
 
 #include "client.h"
 
 
 
-bool init_socket() {
+bool init_socket(char* message) {
     #define SERVER_ADD() ("78.46.177.239")
 
     int my_socket;
     struct sockaddr_in server;
+    char server_reply[2000]; 
 
     // crea il socket
     my_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -31,7 +34,29 @@ bool init_socket() {
         return false;
     }
 
-    #undef SERVER_ADD    
+    // invia una richiesta di tipo GET al server
+    if (send(my_socket, message, strlen(message), 0) < 0) {
+        return false;
+    } else {
+         puts("Invio richesta GET al server..\n");
+    }
+
+   
+
+    // ricevi la risposta dal server
+    if (recv(my_socket, server_reply, 2000, 0) < 0) {
+        return false;
+    } else {
+        puts("Risposta dal server \n");
+        puts(server_reply);
+        puts("\n");
+    }
+
+    #undef SERVER_ADD
+
+    // chiudi il socket
+    close(my_socket);
+
     return true;
 }
 
