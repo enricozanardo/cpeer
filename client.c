@@ -11,7 +11,7 @@
 
 
 bool init_client(char* message) {
-    #define SERVER_ADD() ("78.46.177.239")
+    #define SERVER_ADD() ("127.0.0.1")
 
     int my_socket;
     struct sockaddr_in server;
@@ -27,7 +27,7 @@ bool init_client(char* message) {
     // crea la connessione 
     server.sin_addr.s_addr = inet_addr(SERVER_ADD());
     server.sin_family = AF_INET;
-    server.sin_port = htons( 80 );
+    server.sin_port = htons( 8888 );
 
     // conneti il socket al server remoto
     if (connect(my_socket, (struct sockaddr *)&server, sizeof(server)) < 0) {
@@ -38,7 +38,7 @@ bool init_client(char* message) {
     if (send(my_socket, message, strlen(message), 0) < 0) {
         return false;
     } else {
-         puts("Invio richesta GET al server..\n");
+        puts("Invio richesta GET al server..\n");
     }
 
    

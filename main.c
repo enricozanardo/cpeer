@@ -4,24 +4,47 @@
 #include "client.h"
 #include "server.h"
 
+
 int main() {
-    printf("Ciao Beez Server\n");
+    printf("*** Beez Node ***\n");
+    printf("Server o Client?");
 
-    // client
+    char selection;
 
-    char* message = "GET / HTTP/1.1\r\n\r\n";
+    /* ask user to choose color */
+    printf("Please select the type: (c = client, s = server): ");
+    scanf("%c", &selection);
 
-    bool is_connected = init_client(message);
+    /* print out the result */
+    switch (selection)
+    {
+    case 'c':
+        printf("Client \n");
+        char* message = "GET / HTTP/1.1\r\n\r\n";
 
-    printf("Funziona il client? %s\n", is_connected ? "si" : "no");
+        bool is_connected = init_client(message);
 
-    // server
-    char* hostname = "stellab.it";
+        printf("Funziona il client? %s\n", is_connected ? "si" : "no");
 
-    bool is_getting_ipaddr = get_hostname(hostname);
+        break;
+    case 's':
+        printf("Server\n");
 
-    bool is_server_working = init_server();
+         // server
+        // char* hostname = "stellab.it";
+        // bool is_getting_ipaddr = get_hostname(hostname);
 
-     printf("Funziona il server? %s\n", is_server_working ? "si" : "no");
+        bool is_server_working = init_server();
+
+        printf("Funziona il server? %s\n", is_server_working ? "si" : "no");
+
+        break;
+    default:
+        printf("you did not choose any type\n");
+    }
+
+
+    
+   
 
 }

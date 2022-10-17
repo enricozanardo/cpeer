@@ -68,18 +68,18 @@ bool init_server() {
     puts("Attesa connessioni in arrivo ...");
     number_connections = sizeof(struct sockaddr_in);
 
-    nuovo_socket = accept(my_socket, (struct sockaddr *)&client, (socklen_t*)&number_connections);
+    // Rimani sempre in ascolto di connessioni 
+    while( (nuovo_socket = accept(my_socket, (struct sockaddr *)&client, (socklen_t*)&number_connections)) ){
+         puts("Connessione accettata");
+
+        // Scrivi nel socket la risposta del server al client
+        message = "Connessione rivevuta ma ora devo andare, ciao\n";
+        write(nuovo_socket, message, strlen(message));
+    }
 
     if (nuovo_socket < 0) {
         return false;
     }
-
-    puts("Connessione accettata");
-
-    // Scrivi nel socket la risposta del server al client
-    message = "Connessione rivevuta ma ora devo andare, ciao\n";
-    write(nuovo_socket, message, strlen(message));
-
-
+    
     return true;
 }
