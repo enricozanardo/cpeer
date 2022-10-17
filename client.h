@@ -3,6 +3,6 @@
 
 #include <stdbool.h>
 
-bool init_socket(char* message);
+bool init_client(char* message);
 
 #endif

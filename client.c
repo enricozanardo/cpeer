@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <sys/socket.h>
+#include <sys/socket.h> // sockaddr_in
 #include <arpa/inet.h>
 #include <string.h>
 #include <unistd.h>
@@ -10,7 +10,7 @@
 
 
 
-bool init_socket(char* message) {
+bool init_client(char* message) {
     #define SERVER_ADD() ("78.46.177.239")
 
     int my_socket;
